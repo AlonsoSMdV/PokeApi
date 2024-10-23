@@ -8,4 +8,7 @@ interface PokeApi {
 
     @GET("api/v2/pokemon")
     suspend fun readOne(@Path("id") id: Int): String
+
+    @GET("api/v2/pokemon")
+    suspend fun readOne(@Path("name") name: String): String
 }
