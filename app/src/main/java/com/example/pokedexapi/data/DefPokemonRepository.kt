@@ -1,12 +1,9 @@
 package com.example.pokedexapi.data
 
-import com.example.pokedexapi.data.remote.PokemonListRaw
-import com.example.pokedexapi.data.remote.PokemonNetworkDataSource
 import com.example.pokedexapi.data.remote.PokemonRemoteDataSource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -24,7 +21,7 @@ class DefPokemonRepository @Inject constructor(
         val res = remoteData.readAll()
         val pokes = _state.value.toMutableList()
         if (res.isSuccessful){
-            val pkmnList = res.body()!!.results
+            val pkmnList = res.body()?.results ?: emptyList()
             pkmnList.forEach { pokeR ->
                 pokes.add(readOne(idUrl(pokeR.url)!!))
                 _state.emit(pokes.toList())

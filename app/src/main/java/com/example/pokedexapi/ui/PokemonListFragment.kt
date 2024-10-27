@@ -1,11 +1,11 @@
-package com.example.pokedexapi.ui;
+package com.example.pokedexapi.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment;
-import dagger.hilt.android.AndroidEntryPoint;
+import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.pokedexapi.databinding.FragmentPokemonListBinding
@@ -42,7 +42,9 @@ class PokemonListFragment: Fragment() {
                     is PokemonListUiState.Success -> {
                         (rv.adapter as PokemonListAdapter).submitList(uiState.pokemonList)
                     }
-                    is PokemonListUiState.Error -> {}
+                    is PokemonListUiState.Error -> {
+                        // TODO()
+                    }
                 }
             }
         }

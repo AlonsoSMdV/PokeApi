@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/pokemon_list_fragment"
-    android:padding="100dp">
+    android:orientation="vertical"
+    android:padding="15dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pokemon_list"
