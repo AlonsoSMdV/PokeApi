@@ -1,4 +1,6 @@
 package com.example.pokedexapi.data
 
-class Pokemon {
-}
+data class Pokemon (
+    val id:Int,
+    val name:String
+)

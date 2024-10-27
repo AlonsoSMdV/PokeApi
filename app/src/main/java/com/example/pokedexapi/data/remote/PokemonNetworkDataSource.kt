@@ -1,5 +1,7 @@
 package com.example.pokedexapi.data.remote
 
+import com.example.pokedexapi.data.Pokemon
+import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -7,12 +9,11 @@ import javax.inject.Singleton
 class PokemonNetworkDataSource @Inject constructor(
     private  val pokeApi: PokeApi
 ): PokemonRemoteDataSource{
-    override suspend fun readAll(): String {
-        val pokes = pokeApi.read()
-        return pokes
+    override suspend fun readAll(): Response<PokemonListRaw> {
+        return pokeApi.read()
     }
 
-    override suspend fun readOne(id: Int): String {
+    override suspend fun readOne(id: Int): Response<Pokemon> {
         return pokeApi.readOne(id)
     }
 }
