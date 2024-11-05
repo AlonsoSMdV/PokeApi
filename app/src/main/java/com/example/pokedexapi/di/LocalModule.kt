@@ -1,8 +1,13 @@
 package com.example.pokedexapi.di
 
+import android.content.Context
+import androidx.room.Room
 import com.example.pokedexapi.data.DefPokemonRepository
 import com.example.pokedexapi.data.PokemonRepository
+import com.example.pokedexapi.data.local.AppDataBase
 import com.example.pokedexapi.data.local.IPokemonLocalDataSource
+import com.example.pokedexapi.data.local.PokemonDao
+import com.example.pokedexapi.data.local.PokemonLocalDataSource
 import com.example.pokedexapi.data.remote.PokeApi
 import com.example.pokedexapi.data.remote.PokemonNetworkDataSource
 import com.example.pokedexapi.data.remote.PokemonRemoteDataSource
@@ -10,25 +15,29 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-private const val POKEAPI_URL = "https://pokeapi.co/"
 
 @Module
 @InstallIn(SingletonComponent::class)
-class NetWorkModule{
+class LocalModule{
     @Provides
     @Singleton
-    fun providePokeApiService(): PokeApi{
-        val service = Retrofit.Builder()
-            .baseUrl(POKEAPI_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(PokeApi::class.java)
-        return service
+    fun provideDataBase(@ApplicationContext context: Context): AppDataBase{
+        return Room.databaseBuilder(context,
+            AppDataBase::class.java,
+            "app-db"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun providePokemonDao(dataBase: AppDataBase): PokemonDao {
+        return dataBase.pokemonDao()
     }
 }
 
